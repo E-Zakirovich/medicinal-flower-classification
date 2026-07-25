@@ -12,4 +12,9 @@ path = "Data/"
 
 # train settings
 batch_size = 32
-num_workers = 3
+
+# network settings
+output_layer = 3
+hidden_layer = 512
+input_layer = 8 * 8 * 256
+dropout = 0.5
