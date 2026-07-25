@@ -12,3 +12,4 @@ path = "Data/"
 
 # train settings
 batch_size = 32
+num_workers = 3
