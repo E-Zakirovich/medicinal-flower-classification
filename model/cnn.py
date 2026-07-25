@@ -55,3 +55,17 @@ class Net(nn.Module):
         self.input_layer_and_hidden_layer = nn.Linear(config.input_layer, config.hidden_layer)
         self.dropout = nn.Dropout(p = config.dropout)
         self.hidden_layer_and_output_layer = nn.Linear(config.hidden_layer, config.output_layer)
+
+
+    def forward(self, x):
+        x = self.pool(self.relu(self.batch_normalization_one(self.convolution_layer_one(x))))
+        x = self.pool(self.relu(self.batch_normalization_two(self.convolution_layer_two(x))))
+        x = self.pool(self.relu(self.batch_normalization_three(self.convolution_layer_three(x))))
+        x = self.pool(self.relu(self.batch_normalization_four(self.convolution_layer_four(x))))
+
+        x = x.view(x.size(0), -1)
+
+        x = self.relu(self.input_layer_and_hidden_layer(x))
+        x = self.dropout(x)
+        x = self.hidden_layer_and_output_layer(x)
+        return x
