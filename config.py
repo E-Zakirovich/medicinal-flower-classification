@@ -12,9 +12,11 @@ path = "Data/"
 
 # train settings
 batch_size = 32
+epochs = 40
 
 # network settings
 output_layer = 3
 hidden_layer = 512
 input_layer = 8 * 8 * 256
 dropout = 0.5
+learning_rate = 0.001
