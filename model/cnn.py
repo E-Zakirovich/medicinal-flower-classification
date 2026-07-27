@@ -4,10 +4,10 @@ import torch.nn as nn
 import config
 
 
-class Net(nn.Module):
+class CNN(nn.Module):
 
     def __init__(self):
-        super(Net, self).__init__()
+        super(CNN, self).__init__()
 
         self.convolution_layer_one = nn.Conv2d(
             in_channels = 3,
