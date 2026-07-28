@@ -56,17 +56,18 @@ class Train:
             validation_correct = 0
             validation_total = 0
 
-            for images, labels in self.validation_loader:
-                images = images.to(self.device)
-                labels = labels.to(self.device)
+            with torch.no_grad():
+                for images, labels in self.validation_loader:
+                    images = images.to(self.device)
+                    labels = labels.to(self.device)
 
-                output = self.model(images)
-                loss = self.criterion(output, labels)
+                    output = self.model(images)
+                    loss = self.criterion(output, labels)
 
-                validation_loss += loss.item() * images.size(0)
-                _, predicted = torch.max(output.data, 1)
-                validation_correct += (predicted == labels).sum().item()
-                validation_total += labels.size(0)
+                    validation_loss += loss.item() * images.size(0)
+                    _, predicted = torch.max(output.data, 1)
+                    validation_correct += (predicted == labels).sum().item()
+                    validation_total += labels.size(0)
 
             val_loss = validation_loss / validation_total
             val_acc = validation_correct / validation_total
