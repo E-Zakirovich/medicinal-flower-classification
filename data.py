@@ -50,3 +50,27 @@ class Dataset:
             )
         ]
         )
+
+        """
+        transformation for validation and test dataset.
+        """
+
+        self.validation_and_test_transformation = transforms.Compose([
+            # I am changing the size of the image
+            transforms.Resize(
+                (
+                    config.image_size,  # image size
+                    config.image_size  # image size
+                )
+            ),
+
+            # I will make a tensor from images
+            transforms.ToTensor(),
+
+            # normalization part
+            transforms.Normalize(
+                mean=config.mean,  # mean
+                std=config.std,  # config
+            )
+        ]
+        )
