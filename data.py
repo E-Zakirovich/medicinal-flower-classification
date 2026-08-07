@@ -35,7 +35,7 @@ class Dataset:
             transforms.RandomHorizontalFlip(p = config.horizontal_flip),
 
             # half of the dataset images are flipped vertically,
-            transforms.RandomHorizontalFlip(p=config.vertical_flip),
+            transforms.RandomVerticalFlip(p=config.vertical_flip),
 
             # all dataset images rotated between -a to a degrees
             transforms.RandomRotation(config.angle),
@@ -80,7 +80,7 @@ class Dataset:
     and test dataset with their respective transforms
     """
     @staticmethod
-    def __load_images(self, transform):
+    def __load_images(transform):
         result = datasets.ImageFolder(
             root = config.path,
             transform = transform
@@ -93,7 +93,7 @@ class Dataset:
     their indices.
     """
     @staticmethod
-    def __make_subset(self, indices, dataset):
+    def __make_subset(indices, dataset):
         subset = Subset(
             dataset = dataset,
             indices = indices.indices
@@ -105,12 +105,12 @@ class Dataset:
     and test dataset.
     """
     @staticmethod
-    def __data_loader(self, subset, shuffle):
+    def __data_loader(subset, shuffle):
         dataset = DataLoader(
             dataset = subset,
             batch_size = config.batch_size,
             shuffle = shuffle,
-            num_workers = self.num_workers
+            num_workers = config.num_workers
         )
         return dataset
 
@@ -140,17 +140,18 @@ class Dataset:
                 config.train_split,
                 config.validation_split,
                 config.test_split
-            ]
+            ],
+            generator = generator
         )
 
         # make a training subset according to their indices
         train_subset = self.__make_subset(train_index, train_images)
 
         # make a validation subset according to their indices
-        validation_subset = self.__make_subset(validation_index, train_images)
+        validation_subset = self.__make_subset(validation_index, validation_images)
 
         # make a test subset according to their indices
-        test_subset = self.__make_subset(test_index, train_images)
+        test_subset = self.__make_subset(test_index, test_images)
 
         # load train dataset
         train_dataset = self.__data_loader(train_subset, shuffle = True)
