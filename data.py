@@ -76,5 +76,40 @@ class Dataset:
         )
 
     """
-    I need to load the dataset with following method.
+    following method will help me to load train, validation,
+    and test dataset with their respective transforms
     """
+    @staticmethod
+    def __load_images(self, transform):
+        result = datasets.ImageFolder(
+            root = config.path,
+            transform = transform
+        )
+        return result
+
+    """
+    following method will help me to make subset for
+    train,  validation and test dataset according to
+    their indices.
+    """
+    @staticmethod
+    def __make_subset(self, indices, dataset):
+        subset = Subset(
+            dataset = dataset,
+            indices = indices.indices
+        )
+        return subset
+
+    """
+    following method will help me to load train, validation 
+    and test dataset.
+    """
+    @staticmethod
+    def __data_loader(self, subset, shuffle):
+        dataset = DataLoader(
+            dataset = subset,
+            batch_size = config.batch_size,
+            shuffle = shuffle,
+            num_workers = self.num_workers
+        )
+        return dataset
