@@ -1,0 +1,2 @@
+# dataset settings
+path = "data/"
