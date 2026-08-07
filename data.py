@@ -74,3 +74,24 @@ class Dataset:
             )
         ]
         )
+
+    """
+    I need to load the dataset with following method.
+    """
+
+
+    def __load_dataset(self):
+
+        # Build train, validation and test datasets with their respective transforms
+        train_data = datasets.ImageFolder(
+            root = config.path, # path of the dataset
+            transform = self.train_dataset_transform # connection to transform code
+        )
+        validation_data = datasets.ImageFolder(
+            root = config.path,
+            transform = self.validation_and_test_transformation
+        )
+        test_data = datasets.ImageFolder(
+            root = config.path,
+            transform = self.validation_and_test_transformation
+        )
