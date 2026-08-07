@@ -12,3 +12,5 @@ seed = 42
 train_split = 0.8
 test_split = 0.1
 validation_split = 0.1
+batch_size = 16
+num_workers = 2
